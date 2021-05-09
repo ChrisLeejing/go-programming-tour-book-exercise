@@ -1,9 +1,15 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Chris">
     <words>
+      <w>coirlee</w>
       <w>conns</w>
+      <w>debugf</w>
+      <w>errorf</w>
       <w>gorm</w>
+      <w>infof</w>
       <w>msgf</w>
+      <w>panicf</w>
+      <w>warnf</w>
     </words>
   </dictionary>
 </component>
