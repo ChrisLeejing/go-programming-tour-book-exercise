@@ -4,11 +4,13 @@
       <w>coirlee</w>
       <w>conns</w>
       <w>debugf</w>
+      <w>errcode</w>
       <w>errorf</w>
       <w>gorm</w>
       <w>infof</w>
       <w>msgf</w>
       <w>panicf</w>
+      <w>swaggo</w>
       <w>warnf</w>
     </words>
   </dictionary>

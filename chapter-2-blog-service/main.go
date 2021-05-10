@@ -33,6 +33,10 @@ func init() {
 	}
 }
 
+// @title 博客系统
+// @version v1.0
+// @description Go 语言编程之旅: 一起用 Go 做项目
+// @termsOfService https://github.com/ChrisLeejing/go-programming-tour-book-exercise
 func main() {
 	// set server run mode.
 	gin.SetMode(global.ServerSetting.RunMode)
