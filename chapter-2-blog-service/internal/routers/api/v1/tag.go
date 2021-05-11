@@ -2,6 +2,10 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/global"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/internal/service"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/app"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/errcode"
 	"log"
 )
 
@@ -62,4 +66,18 @@ func (t Tag) Update(c *gin.Context) {
 // @Router /api/v1/tags [get]
 func (t Tag) List(c *gin.Context) {
 	log.Println("tag list...")
+
+	response := app.NewResponse(c)
+
+	// valid the request params.
+	valid, errs := app.BindAndValid(c, &service.ListTagRequest{})
+	// return (bool, ValidErrors), you also can design only return ValidErrors, then if ValidErrors != nil {...}
+	if !valid {
+		global.Logger.Errorf("app.BindAndValid errs: %v", errs)
+		response.ToErrorResponse(errcode.InvalidParams.WithDetails(errs.Errors()...))
+		return
+	}
+
+	response.ToResponse(gin.H{})
+	return
 }

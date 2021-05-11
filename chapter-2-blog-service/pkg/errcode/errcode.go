@@ -44,7 +44,7 @@ func (e *Error) Msgf(args []interface{}) string {
 	return fmt.Sprintf(e.msg, args)
 }
 
-func (e *Error) SetDetails(details ...string) *Error {
+func (e *Error) WithDetails(details ...string) *Error {
 	newError := *e
 	newError.details = []string{}
 	newError.details = append(newError.details, details...)

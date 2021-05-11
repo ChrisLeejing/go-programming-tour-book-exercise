@@ -5,12 +5,14 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	_ "go-programming-tour-book-exercise/chapter-2-blog-service/docs"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/internal/middleware"
 	v1 "go-programming-tour-book-exercise/chapter-2-blog-service/internal/routers/api/v1"
 )
 
 func NewRouter() *gin.Engine {
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
+	r.Use(middleware.Translations())
 
 	// set swagger: http://127.0.0.1:8080/swagger/index.html
 	url := ginSwagger.URL("http://127.0.0.1:8080/swagger/doc.json")
@@ -24,7 +26,7 @@ func NewRouter() *gin.Engine {
 		apiV1.POST("/tags", tag.Create)
 		apiV1.DELETE("/tags/:id", tag.Delete)
 		apiV1.PUT("/tags/:id", tag.Update)
-		apiV1.GET("/tags/:id", tag.List)
+		apiV1.GET("/tags", tag.List)
 
 		// article: CRUD
 		apiV1.POST("/articles", article.Create)
