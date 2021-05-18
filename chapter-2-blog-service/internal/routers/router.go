@@ -6,6 +6,7 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	_ "go-programming-tour-book-exercise/chapter-2-blog-service/docs"
 	"go-programming-tour-book-exercise/chapter-2-blog-service/internal/middleware"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/internal/routers/api"
 	v1 "go-programming-tour-book-exercise/chapter-2-blog-service/internal/routers/api/v1"
 )
 
@@ -19,6 +20,11 @@ func NewRouter() *gin.Engine {
 
 	article := v1.NewArticle()
 	tag := v1.NewTag()
+
+	// upload file
+	upload := api.NewUpload()
+	r.POST("/upload/file", upload.UploadFile)
+
 	apiV1 := r.Group("api/v1")
 	{
 		// tag: CRUD
@@ -33,6 +39,7 @@ func NewRouter() *gin.Engine {
 		apiV1.POST("/articles/:id", article.Update)
 		apiV1.GET("articles/:id", article.Get)
 		apiV1.GET("/articles", article.List)
+
 	}
 
 	return r

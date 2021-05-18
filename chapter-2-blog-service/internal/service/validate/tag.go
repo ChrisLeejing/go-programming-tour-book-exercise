@@ -29,3 +29,7 @@ type UpdateTagRequest struct {
 type DeleteTagRequest struct {
 	ID uint32 `form:"id" json:"id" binding:"required,gte=1"`
 }
+
+type GetTagByIdRequest struct {
+	ID uint32 `form:"id" json:"id" binding:"required,gte=1"`
+}

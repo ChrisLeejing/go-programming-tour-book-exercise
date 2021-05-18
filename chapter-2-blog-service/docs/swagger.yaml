@@ -149,4 +149,29 @@ paths:
           schema:
             $ref: '#/definitions/errcode.Error'
       summary: 更新标签
+  /upload/file:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: 文件类型
+        in: formData
+        name: type
+        required: true
+        type: integer
+      - description: file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            type: string
+      summary: 文件上传
+      tags:
+      - file
 swagger: "2.0"
