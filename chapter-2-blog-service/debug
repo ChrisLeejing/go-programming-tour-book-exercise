@@ -30,6 +30,9 @@ bugs:
 [Done]
     Q: 将service.CreateTagRequest struct -> 抽取到validate层.
     A: 已经抽取完成.
-
+[Done]
     Q: createOn: 没有默认值.
     A: 使用callback回调函数进行dao -> model -> callback()处理.
+[Done]
+    Q: state = 1 -> state = 0. 只要字段是零值的情况下，GORM 就不会对该字段进行变更，这到底是为什么呢？
+    A: 根本的原因是因为在识别这个结构体中的这个字段值时，很难判定是真的是零值，还是外部传入恰好是该类型的零值，GORM 在这块并没有过多的去做特殊识别。

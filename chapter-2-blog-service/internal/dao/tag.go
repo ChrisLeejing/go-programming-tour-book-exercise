@@ -31,14 +31,21 @@ func (d *Dao) CreateTag(name string, state uint8, createBy string) error {
 
 func (d *Dao) UpdateTag(id uint32, name string, state uint8, modifiedBy string) error {
 	tag := model.Tag{
-		Name:  name,
-		State: state,
 		Model: &model.Model{
 			ID:         id,
-			ModifiedBy: modifiedBy,
 		},
 	}
-	return tag.Update(d.engine)
+
+	// fix the bug: the gorm does not update the zero-field.
+	values := map[string]interface{}{
+		"State":      state,
+		"ModifiedBy": modifiedBy,
+	}
+	if values["Name"] != "" {
+		values["Name"] = name
+	}
+
+	return tag.Update(d.engine, values)
 }
 
 func (d *Dao) DeleteTag(id uint32) error {
