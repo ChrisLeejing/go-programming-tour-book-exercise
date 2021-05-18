@@ -1,30 +1,27 @@
 package service
 
-// https://github.com/gin-gonic/gin#model-binding-and-validation
-// `form:"user" json:"user" xml:"user"  binding:"required"`
-type CountTagRequest struct {
-	Name  string `form:"name" json:"name" binding:"max=100"`
-	State uint8  `form:"state,default=1" json:"state" binding:"oneof=0 1"`
+import (
+	"go-programming-tour-book-exercise/chapter-2-blog-service/internal/model"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/internal/service/validate"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/app"
+)
+
+func (svc *Service) CountTag(param *validate.CountTagRequest) (int, error) {
+	return svc.dao.CountTag(param.Name, param.State)
 }
 
-type CreateTagRequest struct {
-	Name      string `form:"name" json:"name" binding:"max=100"`
-	State     uint8  `form:"state,default=1" json:"state" binding:"oneof=0 1"`
-	CreatedBy string `form:"created_by" json:"created_by" binding:"required,min=3,max=100"`
+func (svc *Service) GetTagList(param *validate.ListTagRequest, pager *app.Pager) ([]*model.Tag, error) {
+	return svc.dao.GetTagList(param.Name, param.State, pager.Page, pager.PageSize)
 }
 
-type ListTagRequest struct {
-	Name  string `form:"name" json:"name" binding:"max=100"`
-	State uint8  `form:"state,default=1" json:"state" binding:"oneof=0 1"`
+func (svc *Service) CreateTag(param *validate.CreateTagRequest) error {
+	return svc.dao.CreateTag(param.Name, param.State, param.CreatedBy)
 }
 
-type UpdateTagRequest struct {
-	ID         uint32 `form:"id" json:"id" binding:"required,gte=1"`
-	Name       string `form:"name" json:"name" binding:"max=100"`
-	State      uint8  `form:"state,default=1" json:"state" binding:"oneof=0 1"`
-	ModifiedBy string `form:"modified_by" json:"modified_by" binding:"required,min=3,max=100"`
+func (svc *Service) UpdateTag(param *validate.UpdateTagRequest) error {
+	return svc.dao.UpdateTag(param.ID, param.Name, param.State, param.ModifiedBy)
 }
 
-type DeleteTagRequest struct {
-	ID uint32 `form:"id" json:"id" binding:"required,gte=1"`
+func (svc *Service) DeleteTag(param *validate.DeleteTagRequest) error {
+	return svc.dao.DeleteTag(param.ID)
 }

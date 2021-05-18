@@ -5,7 +5,6 @@
         "title": "博客系统",
         "termsOfService": "https://github.com/ChrisLeejing/go-programming-tour-book-exercise",
         "contact": {},
-        "license": {},
         "version": "v1.0"
     },
     "paths": {
@@ -75,38 +74,12 @@
                 "summary": "新增标签",
                 "parameters": [
                     {
-                        "maxLength": 100,
-                        "minLength": 3,
-                        "description": "标签名称",
-                        "name": "name",
+                        "description": "CreateTagRequest",
+                        "name": "CreateTagRequest",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "enum": [
-                            0,
-                            1
-                        ],
-                        "default": 1,
-                        "description": "状态",
-                        "name": "state",
-                        "in": "body",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "maxLength": 100,
-                        "minLength": 3,
-                        "description": "创建者",
-                        "name": "created_by",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/validate.CreateTagRequest"
                         }
                     }
                 ],
@@ -140,44 +113,12 @@
                 "summary": "更新标签",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "标签 ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "maxLength": 100,
-                        "minLength": 3,
-                        "description": "标签名称",
-                        "name": "name",
-                        "in": "body",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "enum": [
-                            0,
-                            1
-                        ],
-                        "default": 1,
-                        "description": "状态",
-                        "name": "state",
-                        "in": "body",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "maxLength": 100,
-                        "minLength": 3,
-                        "description": "修改者",
-                        "name": "modified_by",
+                        "description": "UpdateTagRequest",
+                        "name": "UpdateTagRequest",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/validate.UpdateTagRequest"
                         }
                     }
                 ],
@@ -243,61 +184,20 @@
         }
     },
     "definitions": {
-        "app.Pager": {
-            "type": "object",
-            "properties": {
-                "page": {
-                    "type": "integer"
-                },
-                "page_size": {
-                    "type": "integer"
-                },
-                "total_rows": {
-                    "type": "integer"
-                }
-            }
-        },
         "errcode.Error": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "description": "remember the json tag.",
-                    "type": "integer"
-                },
-                "details": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
+            "type": "object"
         },
-        "model.Tag": {
+        "model.TagSwagger": {
+            "type": "object"
+        },
+        "validate.CreateTagRequest": {
             "type": "object",
+            "required": [
+                "created_by"
+            ],
             "properties": {
                 "created_by": {
                     "type": "string"
-                },
-                "created_on": {
-                    "type": "integer"
-                },
-                "deleted_on": {
-                    "type": "integer"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "is_del": {
-                    "type": "integer"
-                },
-                "modified_by": {
-                    "type": "string"
-                },
-                "modified_on": {
-                    "type": "integer"
                 },
                 "name": {
                     "type": "string"
@@ -307,18 +207,24 @@
                 }
             }
         },
-        "model.TagSwagger": {
+        "validate.UpdateTagRequest": {
             "type": "object",
+            "required": [
+                "id",
+                "modified_by"
+            ],
             "properties": {
-                "list": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/model.Tag"
-                    }
+                "id": {
+                    "type": "integer"
                 },
-                "pager": {
-                    "type": "object",
-                    "$ref": "#/definitions/app.Pager"
+                "modified_by": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "integer"
                 }
             }
         }

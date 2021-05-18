@@ -15,8 +15,7 @@ func NewRouter() *gin.Engine {
 	r.Use(middleware.Translations())
 
 	// set swagger: http://127.0.0.1:8080/swagger/index.html
-	url := ginSwagger.URL("http://127.0.0.1:8080/swagger/doc.json")
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	article := v1.NewArticle()
 	tag := v1.NewTag()

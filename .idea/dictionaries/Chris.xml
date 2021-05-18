@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Chris">
     <words>
+      <w>atoi</w>
       <w>coirlee</w>
       <w>conns</w>
       <w>debugf</w>
@@ -11,6 +12,7 @@
       <w>msgf</w>
       <w>oneof</w>
       <w>panicf</w>
+      <w>strconv</w>
       <w>swaggo</w>
       <w>verrs</w>
       <w>warnf</w>

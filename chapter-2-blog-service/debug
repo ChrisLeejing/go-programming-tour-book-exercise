@@ -1,0 +1,35 @@
+20210515    Saturday
+bugs:
+[Done]
+    Q: * CreateTag param -> param 进行传递. app.bindAndValid() -> c.ShouldBind().
+    A: param -> &param
+[Done]
+    Q: * curl -X GET "http://localhost:8080/api/v1/tags?name=Go&state=1&page=2&page_size=5" -H "accept: application/json"
+        {
+          "code": 20010002,
+          "msg": "获取标签总数失败"
+        }
+    A: SELECT count(*) FROM `blog_tag`  WHERE (state = 1) AND (is_del)0
+[Done]
+    Q1: Error 1146: Table 'blog_service.tag' doesn't exist // 没有高亮显示???
+    Q2: ?[97;46m POST    ?[0m
+    A1 & A2: 参考：https://blog.csdn.net/cf313995/article/details/108398433
+        Goland Ctrl + Shift + A : registry -> go.run.processes.with.pty -> 取消勾选, 重启服务.
+
+20210517    Monday
+[Done]
+    Q: * deleteTag() id 参数抛错. -> convert.Str() -> uint32
+    A: strconv.Atoi() : string -> int.
+[Done]
+    Q: ok: curl -X POST http://127.0.0.1:8080/api/v1/tags -F 'name=Go' -F created_by=coirlee , swagger: not ok, why?
+    A: 使用：// @Param CreateTagRequest body validate.CreateTagRequest true "CreateTagRequest"
+[Done]
+    Q: UpdateTag()中id: required -> 从body中多出来的ID字段. 如何处理?
+    A: swagger: 删除// @Param id path int true "标签 ID", 请求参数统一封装到
+        // @Param UpdateTagRequest body validate.UpdateTagRequest true "UpdateTagRequest"
+[Done]
+    Q: 将service.CreateTagRequest struct -> 抽取到validate层.
+    A: 已经抽取完成.
+
+    Q: createOn: 没有默认值.
+    A: 使用callback回调函数进行dao -> model -> callback()处理.

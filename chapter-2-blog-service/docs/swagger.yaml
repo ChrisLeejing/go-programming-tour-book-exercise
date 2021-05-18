@@ -1,60 +1,36 @@
 definitions:
-  app.Pager:
-    properties:
-      page:
-        type: integer
-      page_size:
-        type: integer
-      total_rows:
-        type: integer
-    type: object
   errcode.Error:
-    properties:
-      code:
-        description: remember the json tag.
-        type: integer
-      details:
-        items:
-          type: string
-        type: array
-      msg:
-        type: string
     type: object
-  model.Tag:
+  model.TagSwagger:
+    type: object
+  validate.CreateTagRequest:
     properties:
       created_by:
         type: string
-      created_on:
-        type: integer
-      deleted_on:
-        type: integer
-      id:
-        type: integer
-      is_del:
-        type: integer
-      modified_by:
-        type: string
-      modified_on:
-        type: integer
       name:
         type: string
       state:
         type: integer
+    required:
+    - created_by
     type: object
-  model.TagSwagger:
+  validate.UpdateTagRequest:
     properties:
-      list:
-        items:
-          $ref: '#/definitions/model.Tag'
-        type: array
-      pager:
-        $ref: '#/definitions/app.Pager'
-        type: object
+      id:
+        type: integer
+      modified_by:
+        type: string
+      name:
+        type: string
+      state:
+        type: integer
+    required:
+    - id
+    - modified_by
     type: object
 info:
   contact: {}
   description: 'Go 语言编程之旅: 一起用 Go 做项目'
-  license: {}
   termsOfService: https://github.com/ChrisLeejing/go-programming-tour-book-exercise
   title: 博客系统
   version: v1.0
@@ -101,31 +77,12 @@ paths:
       summary: 获取多个标签
     post:
       parameters:
-      - description: 标签名称
+      - description: CreateTagRequest
         in: body
-        maxLength: 100
-        minLength: 3
-        name: name
+        name: CreateTagRequest
         required: true
         schema:
-          type: string
-      - default: 1
-        description: 状态
-        enum:
-        - 0
-        - 1
-        in: body
-        name: state
-        schema:
-          type: integer
-      - description: 创建者
-        in: body
-        maxLength: 100
-        minLength: 3
-        name: created_by
-        required: true
-        schema:
-          type: string
+          $ref: '#/definitions/validate.CreateTagRequest'
       produces:
       - application/json
       responses:
@@ -168,35 +125,12 @@ paths:
       summary: 删除标签
     put:
       parameters:
-      - description: 标签 ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: 标签名称
+      - description: UpdateTagRequest
         in: body
-        maxLength: 100
-        minLength: 3
-        name: name
-        schema:
-          type: string
-      - default: 1
-        description: 状态
-        enum:
-        - 0
-        - 1
-        in: body
-        name: state
-        schema:
-          type: integer
-      - description: 修改者
-        in: body
-        maxLength: 100
-        minLength: 3
-        name: modified_by
+        name: UpdateTagRequest
         required: true
         schema:
-          type: string
+          $ref: '#/definitions/validate.UpdateTagRequest'
       produces:
       - application/json
       responses:
