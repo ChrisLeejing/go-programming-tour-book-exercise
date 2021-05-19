@@ -39,3 +39,6 @@ bugs:
 
     Q: 20210518 GetTagById() 添加UpdateTag(), DeleteTag()中进行判断.
     A: add GetTagById() logic.
+
+    Q: http://localhost:8080/static/6129da52eb7466cb7e5ab58038fbb349.jpeg -> 404 page not found
+    A: r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))

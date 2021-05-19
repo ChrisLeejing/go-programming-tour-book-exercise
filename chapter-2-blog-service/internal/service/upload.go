@@ -37,7 +37,8 @@ func (svc *Service) UploadFile(fileType upload.FileType, file multipart.File, fi
 	// }
 
 	dst := uploadSavePath + "/" + filename
-	accessUrl := global.AppSetting.UploadSavePath + "/" + filename
+	// UploadServerUrl: http://127.0.0.1:8080/static
+	accessUrl := global.AppSetting.UploadServerUrl + "/" + filename
 	if err := upload.SaveFile(fileHeader, dst); err != nil {
 		return nil, err
 	}

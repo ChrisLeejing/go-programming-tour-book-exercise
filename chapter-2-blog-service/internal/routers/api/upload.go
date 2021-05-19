@@ -8,13 +8,10 @@ import (
 	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/convert"
 	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/errcode"
 	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/upload"
-	"mime/multipart"
 )
 
 type Upload struct {
 }
-
-var file multipart.File
 
 func NewUpload() Upload {
 	return Upload{}
@@ -49,6 +46,8 @@ func (u Upload) UploadFile(c *gin.Context) {
 	ctx := c.Request.Context()
 	svc := service.New(ctx)
 	fileInfo, err := svc.UploadFile(upload.FileType(fileType), file, fileHeader)
+	// svc := service.New(c.Request.Context())
+	// fileInfo, err := svc.UploadFile(upload.FileType(fileType), file, fileHeader)
 	if err != nil {
 		global.Logger.Errorf("svc.UploadFile err: %v", err)
 		response.ToErrorResponse(errcode.ErrorUploadFileFail.WithDetails(err.Error()))
