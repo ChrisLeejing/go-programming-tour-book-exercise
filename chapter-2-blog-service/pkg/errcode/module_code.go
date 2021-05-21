@@ -8,4 +8,6 @@ var (
 	ErrorDeleteTagFail  = NewError(20010005, "逻辑(物理)删除标签失败")
 
 	ErrorUploadFileFail = NewError(20030001, "上传文件失败")
+
+	ErrorGetAuthFail = NewError(20040001, "获取验证失败")
 )

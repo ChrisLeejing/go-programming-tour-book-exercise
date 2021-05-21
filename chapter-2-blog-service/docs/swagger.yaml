@@ -14,6 +14,17 @@ definitions:
     required:
     - created_by
     type: object
+  validate.GetAuthRequest:
+    properties:
+      app_key:
+        description: https://github.com/gin-gonic/gin#model-binding-and-validation
+        type: string
+      app_secret:
+        type: string
+    required:
+    - app_key
+    - app_secret
+    type: object
   validate.UpdateTagRequest:
     properties:
       id:
@@ -35,6 +46,31 @@ info:
   title: 博客系统
   version: v1.0
 paths:
+  /api/v1/auth:
+    post:
+      parameters:
+      - description: GetAuthRequest
+        in: body
+        name: GetAuthRequest
+        required: true
+        schema:
+          $ref: '#/definitions/validate.GetAuthRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            type: string
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 获取认证token
   /api/v1/tags:
     get:
       parameters:

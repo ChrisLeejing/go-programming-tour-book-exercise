@@ -22,6 +22,7 @@ func NewRouter() *gin.Engine {
 
 	article := v1.NewArticle()
 	tag := v1.NewTag()
+	auth := v1.NewAuth()
 
 	// upload file
 	upload := api.NewUpload()
@@ -43,6 +44,8 @@ func NewRouter() *gin.Engine {
 		apiV1.GET("articles/:id", article.Get)
 		apiV1.GET("/articles", article.List)
 
+		// auth: token
+		apiV1.POST("/auth", auth.GetAuth)
 	}
 
 	return r

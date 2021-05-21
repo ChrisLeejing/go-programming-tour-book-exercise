@@ -25,6 +25,45 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/auth": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "获取认证token",
+                "parameters": [
+                    {
+                        "description": "GetAuthRequest",
+                        "name": "GetAuthRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/validate.GetAuthRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "请求错误",
+                        "schema": {
+                            "$ref": "#/definitions/errcode.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/errcode.Error"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/tags": {
             "get": {
                 "produces": [
@@ -259,6 +298,22 @@ var doc = `{
                 },
                 "state": {
                     "type": "integer"
+                }
+            }
+        },
+        "validate.GetAuthRequest": {
+            "type": "object",
+            "required": [
+                "app_key",
+                "app_secret"
+            ],
+            "properties": {
+                "app_key": {
+                    "description": "https://github.com/gin-gonic/gin#model-binding-and-validation",
+                    "type": "string"
+                },
+                "app_secret": {
+                    "type": "string"
                 }
             }
         },
