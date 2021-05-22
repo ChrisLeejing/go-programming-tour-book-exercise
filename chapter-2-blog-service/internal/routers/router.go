@@ -29,7 +29,13 @@ func NewRouter() *gin.Engine {
 	r.POST("/upload/file", upload.UploadFile)
 	// UploadSavePath: storage/uploads
 	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
+
+	// auth: token
+	r.POST("/auth", auth.GetAuth)
+
 	apiV1 := r.Group("api/v1")
+	// add middleware token
+	apiV1.Use(middleware.JWT())
 	{
 		// tag: CRUD
 		apiV1.POST("/tags", tag.Create)
@@ -44,8 +50,6 @@ func NewRouter() *gin.Engine {
 		apiV1.GET("articles/:id", article.Get)
 		apiV1.GET("/articles", article.List)
 
-		// auth: token
-		apiV1.POST("/auth", auth.GetAuth)
 	}
 
 	return r

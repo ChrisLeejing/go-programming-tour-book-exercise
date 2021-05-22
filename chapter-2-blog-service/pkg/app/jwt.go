@@ -52,3 +52,12 @@ func ParseToken(token string) (*Claims, error) {
 
 	return nil, err
 }
+
+// NOTE: must not store important info in token, because it can be decoded by others.
+// payload, err := base64.StdEncoding.DecodeString("eyJhcHBfa2V5IjoiZGQ4MWZjZTU2ZDg3ZjhjMjhkMzg5ZmJiM2M2Y2IxZTkiLCJhcHBfc2VjcmV0IjoiN2M5NzI2NjMxNzBkNmJjMTg0ODRkMDViYzk4NzIyZjQiLCJleHAiOjE2MjE2NjM3MjMsImlzcyI6ImJsb2ctc2VydmljZSJ9")
+// if err != nil {
+// log.Fatalf("jwt decode err: %v", err)
+// }
+//
+// fmt.Printf("payload: %v", string(payload))
+// // payload: {"app_key":"dd81fce56d87f8c28d389fbb3c6cb1e9","app_secret":"7c972663170d6bc18484d05bc98722f4","exp":1621663723,"iss":"blog-service"}

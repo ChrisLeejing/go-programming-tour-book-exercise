@@ -25,45 +25,6 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/auth": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "获取认证token",
-                "parameters": [
-                    {
-                        "description": "GetAuthRequest",
-                        "name": "GetAuthRequest",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/validate.GetAuthRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "400": {
-                        "description": "请求错误",
-                        "schema": {
-                            "$ref": "#/definitions/errcode.Error"
-                        }
-                    },
-                    "500": {
-                        "description": "内部错误",
-                        "schema": {
-                            "$ref": "#/definitions/errcode.Error"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/tags": {
             "get": {
                 "produces": [
@@ -71,6 +32,13 @@ var doc = `{
                 ],
                 "summary": "获取多个标签",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWT Token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "maxLength": 100,
                         "type": "string",
@@ -130,6 +98,13 @@ var doc = `{
                 "summary": "新增标签",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "JWT Token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "CreateTagRequest",
                         "name": "CreateTagRequest",
                         "in": "body",
@@ -168,6 +143,13 @@ var doc = `{
                 ],
                 "summary": "更新标签",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWT Token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "UpdateTagRequest",
                         "name": "UpdateTagRequest",
@@ -209,11 +191,57 @@ var doc = `{
                 "summary": "删除标签",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "JWT Token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "type": "integer",
                         "description": "标签 ID",
                         "name": "id",
                         "in": "path",
                         "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "请求错误",
+                        "schema": {
+                            "$ref": "#/definitions/errcode.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/errcode.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "获取认证token",
+                "parameters": [
+                    {
+                        "description": "GetAuthRequest",
+                        "name": "GetAuthRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/validate.GetAuthRequest"
+                        }
                     }
                 ],
                 "responses": {

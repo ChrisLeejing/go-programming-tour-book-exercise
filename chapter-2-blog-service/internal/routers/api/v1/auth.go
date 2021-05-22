@@ -22,7 +22,7 @@ func NewAuth() Auth {
 // @Success 200 {string} string "成功"
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
-// @Router /api/v1/auth [post]
+// @Router /auth [post]
 func (a Auth) GetAuth(c *gin.Context) {
 	param := validate.GetAuthRequest{}
 	response := app.NewResponse(c)
