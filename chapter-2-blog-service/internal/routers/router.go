@@ -27,6 +27,8 @@ func NewRouter() *gin.Engine {
 	// upload file
 	upload := api.NewUpload()
 	r.POST("/upload/file", upload.UploadFile)
+	r.POST("/upload/files", upload.UploadFiles)
+
 	// UploadSavePath: storage/uploads
 	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 

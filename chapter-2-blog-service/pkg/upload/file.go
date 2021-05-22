@@ -74,11 +74,11 @@ func CheckExceedMaxSize(t FileType, file multipart.File) bool {
 	return false
 }
 
-func CheckPermission(dst string) bool {
-	// Stat returns a FileInfo describing the named file.
-	_, err := os.Stat(dst)
-	return os.IsPermission(err)
-}
+// func CheckPermission(dst string) bool {
+// 	// Stat returns a FileInfo describing the named file.
+// 	_, err := os.Stat(dst)
+// 	return os.IsPermission(err)
+// }
 
 func CreateSavePath(dst string, perm os.FileMode) error {
 	// A FileMode represents a file's mode and permission bits.
