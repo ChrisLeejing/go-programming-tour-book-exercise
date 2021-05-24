@@ -24,6 +24,7 @@ func NewAuth() Auth {
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /auth [post]
 func (a Auth) GetAuth(c *gin.Context) {
+	// panic("模拟邮件发送错误") // 详见告警邮件截图: ./docs/email-panic/email-panic.png
 	param := validate.GetAuthRequest{}
 	response := app.NewResponse(c)
 
@@ -52,6 +53,5 @@ func (a Auth) GetAuth(c *gin.Context) {
 	response.ToResponse(gin.H{
 		"token": token,
 	})
-
 	return
 }

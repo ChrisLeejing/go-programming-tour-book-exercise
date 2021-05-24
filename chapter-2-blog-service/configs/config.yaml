@@ -16,6 +16,15 @@ App:
     - .jpg
     - .jpeg
     - .png
+Email:
+  Host: smtp.qq.com
+  Port: 465
+  UserName: 757561978@qq.com
+  Password: zoxmrzxrstpobfgf
+  IsSSL: true
+  From: 7575*****@qq.com # Chris
+  To:
+    - 183*******@qq.com
 Database:
   DBType: mysql
   Username: root

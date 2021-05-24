@@ -10,10 +10,12 @@
       <w>errorf</w>
       <w>exts</w>
       <w>gorm</w>
+      <w>imap</w>
       <w>infof</w>
       <w>msgf</w>
       <w>oneof</w>
       <w>panicf</w>
+      <w>smtp</w>
       <w>strconv</w>
       <w>swaggo</w>
       <w>verrs</w>

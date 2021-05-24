@@ -76,6 +76,10 @@ func setupSetting() error {
 	if err != nil {
 		return err
 	}
+	err = set.ReadSection("Email", &global.EmailSetting)
+	if err != nil {
+		return err
+	}
 	err = set.ReadSection("Database", &global.DatabaseSetting)
 	if err != nil {
 		return err

@@ -18,7 +18,7 @@ func NewRouter() *gin.Engine {
 		r.Use(gin.Logger(), gin.Recovery())
 	} else {
 		r.Use(middleware.AccessLog())
-		r.Use(gin.Recovery())
+		r.Use(middleware.Recovery())
 	}
 	r.Use(middleware.Translations())
 
