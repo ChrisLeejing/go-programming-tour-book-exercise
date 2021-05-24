@@ -9,8 +9,17 @@ import (
 	"go-programming-tour-book-exercise/chapter-2-blog-service/internal/middleware"
 	"go-programming-tour-book-exercise/chapter-2-blog-service/internal/routers/api"
 	v1 "go-programming-tour-book-exercise/chapter-2-blog-service/internal/routers/api/v1"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/limiter"
 	"net/http"
+	"time"
 )
+
+var methodLimiters = limiter.NewMethodLimiter().AddBuckets(limiter.LimiterBucketRule{
+	Key:          "/auth",
+	FillInterval: time.Second,
+	Capacity:     1,
+	Quantum:      1,
+})
 
 func NewRouter() *gin.Engine {
 	r := gin.New()
@@ -21,6 +30,7 @@ func NewRouter() *gin.Engine {
 		r.Use(middleware.Recovery())
 	}
 	r.Use(middleware.Translations())
+	r.Use(middleware.RateLimiter(methodLimiters))
 
 	// set swagger: http://127.0.0.1:8080/swagger/index.html
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
