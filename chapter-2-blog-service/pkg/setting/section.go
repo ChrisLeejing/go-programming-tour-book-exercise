@@ -10,15 +10,16 @@ type ServerSetting struct {
 }
 
 type AppSetting struct {
-	DefaultPageSize      int
-	MaxPageSize          int
-	LogSavePath          string
-	LogFileName          string
-	LogFileExt           string
-	UploadSavePath       string
-	UploadServerUrl      string
-	UploadImageMaxSize   int
-	UploadImageAllowExts []string
+	DefaultPageSize       int
+	MaxPageSize           int
+	DefaultContextTimeout time.Duration
+	LogSavePath           string
+	LogFileName           string
+	LogFileExt            string
+	UploadSavePath        string
+	UploadServerUrl       string
+	UploadImageMaxSize    int
+	UploadImageAllowExts  []string
 }
 
 type DatabaseSetting struct {
