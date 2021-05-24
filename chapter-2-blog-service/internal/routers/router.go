@@ -14,7 +14,12 @@ import (
 
 func NewRouter() *gin.Engine {
 	r := gin.New()
-	r.Use(gin.Logger(), gin.Recovery())
+	if global.ServerSetting.RunMode == "debug" {
+		r.Use(gin.Logger(), gin.Recovery())
+	} else {
+		r.Use(middleware.AccessLog())
+		r.Use(gin.Recovery())
+	}
 	r.Use(middleware.Translations())
 
 	// set swagger: http://127.0.0.1:8080/swagger/index.html
