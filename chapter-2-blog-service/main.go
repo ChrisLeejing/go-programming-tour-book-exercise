@@ -8,6 +8,7 @@ import (
 	"go-programming-tour-book-exercise/chapter-2-blog-service/internal/routers"
 	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/logger"
 	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/setting"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/tracer"
 	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/validator"
 	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
@@ -38,6 +39,12 @@ func init() {
 	err = setupValidator()
 	if err != nil {
 		log.Fatalf("init setupValidator() err: %v", err)
+	}
+
+	// set jaeger tracing.
+	err = setupTracer()
+	if err != nil {
+		log.Fatalf("init setupTracer() err: %v", err)
 	}
 }
 
@@ -123,5 +130,18 @@ func setupValidator() error {
 
 	binding.Validator = global.Validator
 
+	return nil
+}
+
+func setupTracer() error {
+	jaegerTracer, _, err := tracer.NewJaegerTracer(
+		"blog-service",
+		"192.168.37.15:6831",
+	)
+	if err != nil {
+		return err
+	}
+
+	global.Tracer = jaegerTracer
 	return nil
 }
