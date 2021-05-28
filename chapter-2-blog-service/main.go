@@ -64,7 +64,7 @@ func main() {
 		MaxHeaderBytes: 1 << 20,
 	}
 	// test the log component.
-	global.Logger.Infof("%s: go-programming-tour-book-exercise/%s", "coirlee", "blog-service")
+	log.Printf("%s: go-programming-tour-book-exercise/%s", "coirlee", "blog-service")
 	server.ListenAndServe()
 
 }

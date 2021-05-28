@@ -37,6 +37,6 @@ func AccessLog() gin.HandlerFunc {
 		}
 
 		s := "access log: request method: %s, status: %d, begin time: %d, end time: %d"
-		global.Logger.WithFields(fields).Infof(s, c.Request.Method, c.Status, begin, end)
+		global.Logger.WithFields(fields).Infof(c, s, c.Request.Method, c.Status, begin, end)
 	}
 }
