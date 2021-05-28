@@ -47,8 +47,7 @@ func (u Upload) UploadFile(c *gin.Context) {
 		return
 	}
 
-	ctx := c.Request.Context()
-	svc := service.New(ctx)
+	svc := service.New(c.Request.Context())
 	fileInfo, err := svc.UploadFile(upload.FileType(fileType), file, fileHeader)
 	// svc := service.New(c.Request.Context())
 	// fileInfo, err := svc.UploadFile(upload.FileType(fileType), file, fileHeader)

@@ -28,7 +28,7 @@ func NewTag() Tag {
 // @Router /api/v1/tags [post]
 func (t Tag) Create(c *gin.Context) {
 	param := validate.CreateTagRequest{}
-	svc := service.New(c)
+	svc := service.New(c.Request.Context())
 	response := app.NewResponse(c)
 	valid, errors := app.BindAndValid(c, &param)
 	if !valid {
@@ -59,7 +59,7 @@ func (t Tag) Delete(c *gin.Context) {
 		ID: convert.StrTo(c.Param("id")).MustUInt32(),
 	}
 	response := app.NewResponse(c)
-	svc := service.New(c)
+	svc := service.New(c.Request.Context())
 
 	valid, errors := app.BindAndValid(c, &param)
 	if !valid {
@@ -89,7 +89,7 @@ func (t Tag) Delete(c *gin.Context) {
 func (t Tag) Update(c *gin.Context) {
 	param := validate.UpdateTagRequest{}
 	response := app.NewResponse(c)
-	svc := service.New(c)
+	svc := service.New(c.Request.Context())
 
 	// valid the request params.
 	valid, errors := app.BindAndValid(c, &param)
@@ -135,7 +135,7 @@ func (t Tag) List(c *gin.Context) {
 		return
 	}
 
-	svc := service.New(c)
+	svc := service.New(c.Request.Context())
 	totalRows, err := svc.CountTag(&validate.CountTagRequest{Name: param.Name, State: param.State})
 	if err != nil {
 		global.Logger.Errorf("svc.CountTag err: %v", err)

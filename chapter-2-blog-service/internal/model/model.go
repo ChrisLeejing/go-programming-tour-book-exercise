@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	otgorm "github.com/eddycjy/opentracing-gorm"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"go-programming-tour-book-exercise/chapter-2-blog-service/global"
@@ -46,6 +47,8 @@ func NewDBEngine(databaseSetting *setting.DatabaseSetting) (*gorm.DB, error) {
 	db.DB().SetMaxIdleConns(databaseSetting.MaxIdleConns)
 	db.DB().SetMaxOpenConns(databaseSetting.MaxOpenConns)
 
+	// add Jaeger trace.
+	otgorm.AddGormCallbacks(db)
 	return db, nil
 }
 
