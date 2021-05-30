@@ -39,6 +39,10 @@ func (t Tag) Create(c *gin.Context) {
 
 	if err := svc.CreateTag(&param); err != nil {
 		global.Logger.Errorf("svc.CreateTag err: %v", err)
+		if err.(*errcode.Error).Code() == errcode.ErrorTagExisted.Code() {
+			response.ToErrorResponse(errcode.ErrorTagExisted)
+			return
+		}
 		response.ToErrorResponse(errcode.ErrorCreateTagFail)
 		return
 	}
@@ -158,5 +162,38 @@ func (t Tag) List(c *gin.Context) {
 	}
 
 	response.ToResponseList(tags, totalRows)
+	return
+}
+
+// @Summary 获取标签
+// @Produce  json
+// @Param token header string true "JWT Token"
+// @Param id path int true "标签 ID"
+// @Success 200 {string} string "成功"
+// @Failure 400 {object} errcode.Error "请求错误"
+// @Failure 500 {object} errcode.Error "内部错误"
+// @Router /api/v1/tags/{id} [get]
+func (t Tag) Get(c *gin.Context) {
+	param := validate.GetTagByIdRequest{
+		ID: convert.StrTo(c.Param("id")).MustUInt32(),
+	}
+	response := app.NewResponse(c)
+	svc := service.New(c.Request.Context())
+
+	valid, errors := app.BindAndValid(c, &param)
+	if !valid {
+		global.Logger.Errorf("GetTagById app.BindAndValid errors: %v", errors)
+		response.ToErrorResponse(errcode.InvalidParams.WithDetails(errors.Errors()...))
+		return
+	}
+
+	tag, err := svc.GetTagById(&param)
+	if err != nil {
+		global.Logger.Errorf("svc.GetTagById err: %v", err)
+		response.ToErrorResponse(errcode.ErrorGetTagFail)
+		return
+	}
+
+	response.ToResponse(tag)
 	return
 }

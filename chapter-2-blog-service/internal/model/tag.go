@@ -71,3 +71,15 @@ func (t Tag) Delete(db *gorm.DB) error {
 	// return t.Update(db)
 	return db.Where("id = ? AND is_del = ?", t.ID, 0).Delete(&t).Error // really delete.
 }
+
+func (t Tag) GetTagById(db *gorm.DB) (Tag, error) {
+	err := db.Where("id = ? AND is_del = ?", t.ID, 0).First(&t).Error
+
+	return t, err
+}
+
+func (t Tag) GetTagByName(db *gorm.DB) (Tag, error) {
+	err := db.Where("name = ? AND is_del = ?", t.Name, 0).First(&t).Error
+
+	return t, err
+}

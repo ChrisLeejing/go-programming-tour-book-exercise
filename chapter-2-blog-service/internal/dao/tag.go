@@ -32,7 +32,7 @@ func (d *Dao) CreateTag(name string, state uint8, createBy string) error {
 func (d *Dao) UpdateTag(id uint32, name string, state uint8, modifiedBy string) error {
 	tag := model.Tag{
 		Model: &model.Model{
-			ID:         id,
+			ID: id,
 		},
 	}
 
@@ -56,4 +56,22 @@ func (d *Dao) DeleteTag(id uint32) error {
 	}
 
 	return tag.Delete(d.engine)
+}
+
+func (d *Dao) GetTagById(id uint32) (model.Tag, error) {
+	tag := model.Tag{
+		Model: &model.Model{
+			ID: id,
+		},
+	}
+
+	return tag.GetTagById(d.engine)
+}
+
+func (d *Dao) GetTagByName(name string) (model.Tag, error) {
+	tag := model.Tag{
+		Name: name,
+	}
+
+	return tag.GetTagByName(d.engine)
 }

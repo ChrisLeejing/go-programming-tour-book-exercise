@@ -14,6 +14,7 @@
       <w>infof</w>
       <w>msgf</w>
       <w>oneof</w>
+      <w>opentracing</w>
       <w>panicf</w>
       <w>smtp</w>
       <w>strconv</w>
