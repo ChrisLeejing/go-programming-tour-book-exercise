@@ -17,6 +17,7 @@ func NewAuth() Auth {
 }
 
 // @Summary 获取认证token
+// @Tags Token 鉴权
 // @Produce  json
 // @Param GetAuthRequest body validate.GetAuthRequest true "GetAuthRequest"
 // @Success 200 {string} string "成功"

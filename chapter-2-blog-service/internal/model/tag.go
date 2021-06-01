@@ -2,7 +2,9 @@ package model
 
 import (
 	"github.com/jinzhu/gorm"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/global"
 	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/app"
+	"go-programming-tour-book-exercise/chapter-2-blog-service/pkg/errcode"
 )
 
 type Tag struct {
@@ -82,4 +84,15 @@ func (t Tag) GetTagByName(db *gorm.DB) (Tag, error) {
 	err := db.Where("name = ? AND is_del = ?", t.Name, 0).First(&t).Error
 
 	return t, err
+}
+
+func (t Tag) GetTagByIds(db *gorm.DB, ids []uint32) ([]Tag, error) {
+	var tags []Tag
+
+	err := db.Find(&tags, ids).Where("AND is_del = ?", 0).Error
+	if err != nil {
+		global.Logger.Error(errcode.ErrorGetTagsFail)
+		return nil, err
+	}
+	return tags, err
 }

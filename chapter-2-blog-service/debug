@@ -49,3 +49,15 @@ bugs:
 [Done]
     Q: Add git branch dev
     A: git checkout dev
+[Done]
+    Q: swag article, tag not group.
+    A: // @Tags <tag_name>
+
+    Q: table: blog_article_tag, created_on is "". why?
+    A:
+
+    Q: CreateArticle: api/v1/article.go -> bind, validate, response, error ...
+    A:
+
+    Q: Create batch.
+    A: https://betterprogramming.pub/how-to-bulk-create-and-update-the-right-way-in-golang-part-i-e15a8e5585d1

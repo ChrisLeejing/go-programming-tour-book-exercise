@@ -19,6 +19,7 @@ func NewTag() Tag {
 }
 
 // @Summary 新增标签
+// @Tags Tag 标签
 // @Produce  json
 // @Param token header string true "JWT Token"
 // @Param CreateTagRequest body validate.CreateTagRequest true "CreateTagRequest"
@@ -51,6 +52,7 @@ func (t Tag) Create(c *gin.Context) {
 }
 
 // @Summary 删除标签
+// @Tags Tag 标签
 // @Produce  json
 // @Param token header string true "JWT Token"
 // @Param id path int true "标签 ID"
@@ -83,6 +85,7 @@ func (t Tag) Delete(c *gin.Context) {
 }
 
 // @Summary 更新标签
+// @Tags Tag 标签
 // @Produce  json
 // @Param token header string true "JWT Token"
 // @Param UpdateTagRequest body validate.UpdateTagRequest true "UpdateTagRequest"
@@ -115,6 +118,7 @@ func (t Tag) Update(c *gin.Context) {
 }
 
 // @Summary 获取多个标签
+// @Tags Tag 标签
 // @Produce json
 // @Param token header string true "JWT Token"
 // @Param name query string false "标签名称" maxlength(100)
@@ -166,6 +170,7 @@ func (t Tag) List(c *gin.Context) {
 }
 
 // @Summary 获取标签
+// @Tags Tag 标签
 // @Produce  json
 // @Param token header string true "JWT Token"
 // @Param id path int true "标签 ID"

@@ -75,3 +75,9 @@ func (d *Dao) GetTagByName(name string) (model.Tag, error) {
 
 	return tag.GetTagByName(d.engine)
 }
+
+func (d *Dao) GetTagByIds(ids []uint32) ([]model.Tag, error) {
+	tag := model.Tag{}
+
+	return tag.GetTagByIds(d.engine, ids)
+}

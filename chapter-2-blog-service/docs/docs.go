@@ -25,10 +25,62 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/articles": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Article 文章"
+                ],
+                "summary": "新增文章",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWT Token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "CreateArticleRequest",
+                        "name": "CreateArticleRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/validate.CreateArticleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/model.TagSwagger"
+                        }
+                    },
+                    "400": {
+                        "description": "请求错误",
+                        "schema": {
+                            "$ref": "#/definitions/errcode.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/errcode.Error"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/tags": {
             "get": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Tag 标签"
                 ],
                 "summary": "获取多个标签",
                 "parameters": [
@@ -95,6 +147,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Tag 标签"
+                ],
                 "summary": "新增标签",
                 "parameters": [
                     {
@@ -141,6 +196,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Tag 标签"
+                ],
                 "summary": "获取标签",
                 "parameters": [
                     {
@@ -182,6 +240,9 @@ var doc = `{
             "put": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Tag 标签"
                 ],
                 "summary": "更新标签",
                 "parameters": [
@@ -230,6 +291,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Tag 标签"
+                ],
                 "summary": "删除标签",
                 "parameters": [
                     {
@@ -274,6 +338,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Token 鉴权"
+                ],
                 "summary": "获取认证token",
                 "parameters": [
                     {
@@ -317,7 +384,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "file"
+                    "File 文件"
                 ],
                 "summary": "文件上传",
                 "parameters": [
@@ -353,6 +420,39 @@ var doc = `{
         },
         "model.TagSwagger": {
             "type": "object"
+        },
+        "validate.CreateArticleRequest": {
+            "type": "object",
+            "required": [
+                "created_by",
+                "title"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "cover_img_url": {
+                    "type": "string"
+                },
+                "created_by": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "integer"
+                },
+                "tag_ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
         },
         "validate.CreateTagRequest": {
             "type": "object",

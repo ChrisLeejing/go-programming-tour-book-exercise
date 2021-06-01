@@ -3,6 +3,28 @@ definitions:
     type: object
   model.TagSwagger:
     type: object
+  validate.CreateArticleRequest:
+    properties:
+      content:
+        type: string
+      cover_img_url:
+        type: string
+      created_by:
+        type: string
+      desc:
+        type: string
+      state:
+        type: integer
+      tag_ids:
+        items:
+          type: integer
+        type: array
+      title:
+        type: string
+    required:
+    - created_by
+    - title
+    type: object
   validate.CreateTagRequest:
     properties:
       created_by:
@@ -46,6 +68,38 @@ info:
   title: 博客系统
   version: v1.0
 paths:
+  /api/v1/articles:
+    post:
+      parameters:
+      - description: JWT Token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: CreateArticleRequest
+        in: body
+        name: CreateArticleRequest
+        required: true
+        schema:
+          $ref: '#/definitions/validate.CreateArticleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.TagSwagger'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 新增文章
+      tags:
+      - Article 文章
   /api/v1/tags:
     get:
       parameters:
@@ -91,6 +145,8 @@ paths:
           schema:
             $ref: '#/definitions/errcode.Error'
       summary: 获取多个标签
+      tags:
+      - Tag 标签
     post:
       parameters:
       - description: JWT Token
@@ -120,6 +176,8 @@ paths:
           schema:
             $ref: '#/definitions/errcode.Error'
       summary: 新增标签
+      tags:
+      - Tag 标签
   /api/v1/tags/{id}:
     delete:
       parameters:
@@ -149,6 +207,8 @@ paths:
           schema:
             $ref: '#/definitions/errcode.Error'
       summary: 删除标签
+      tags:
+      - Tag 标签
     get:
       parameters:
       - description: JWT Token
@@ -177,6 +237,8 @@ paths:
           schema:
             $ref: '#/definitions/errcode.Error'
       summary: 获取标签
+      tags:
+      - Tag 标签
     put:
       parameters:
       - description: JWT Token
@@ -208,6 +270,8 @@ paths:
           schema:
             $ref: '#/definitions/errcode.Error'
       summary: 更新标签
+      tags:
+      - Tag 标签
   /auth:
     post:
       parameters:
@@ -233,6 +297,8 @@ paths:
           schema:
             $ref: '#/definitions/errcode.Error'
       summary: 获取认证token
+      tags:
+      - Token 鉴权
   /upload/file:
     post:
       consumes:
@@ -257,5 +323,5 @@ paths:
             type: string
       summary: 文件上传
       tags:
-      - file
+      - File 文件
 swagger: "2.0"

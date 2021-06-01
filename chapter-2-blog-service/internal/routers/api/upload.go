@@ -22,8 +22,8 @@ func NewUpload() Upload {
 }
 
 // @Summary 文件上传
+// @Tags File 文件
 // @Description
-// @Tags file
 // @Accept multipart/form-data
 // @version 1.0
 // @Param type formData int true "文件类型"

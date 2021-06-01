@@ -40,5 +40,5 @@ Database:
 JWT:
   Secret: coirlee
   Issuer: blog-service
-  Expire: 7200
+  Expire: 86400
 

@@ -64,11 +64,11 @@ func NewRouter() *gin.Engine {
 		apiV1.GET("/tags/:id", tag.Get)
 
 		// article: CRUD
-		apiV1.POST("/articles", article.Create)
-		apiV1.DELETE("/articles/:id", article.Delete)
-		apiV1.POST("/articles/:id", article.Update)
-		apiV1.GET("articles/:id", article.Get)
-		apiV1.GET("/articles", article.List)
+		apiV1.POST("/articles", article.CreateArticle)
+		apiV1.DELETE("/articles/:id", article.DeleteArticle)
+		apiV1.POST("/articles/:id", article.UpdateArticle)
+		apiV1.GET("articles/:id", article.GetArticle)
+		apiV1.GET("/articles", article.ListArticle)
 
 	}
 
